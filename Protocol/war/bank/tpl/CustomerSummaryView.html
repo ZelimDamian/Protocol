@@ -1,0 +1,48 @@
+<div class="row">
+	<div>
+	<form class="form-horizontal">
+	<fieldset class="span6">
+	
+	<!-- Form Name -->
+	<legend>Customer Details</legend>
+	
+	<!-- Text input-->
+	<div class="control-group">
+	  <label class="control-label" for="login">Login</label>
+	  <div class="controls">
+	    <input id="login" name="login" type="text" placeholder="Login" class="input-large" value="<%= login %>">
+	    
+	  </div>
+	</div>
+	
+	<!-- Text input-->
+	<div class="control-group">
+	  <label class="control-label" for="account">Account</label>
+	  <div class="controls">
+	    <input id="account" name="account" type="text" placeholder="Funds avaialbe" value= "<%= account %>" class="input-large">
+	    
+	  </div>
+	</div>
+	
+	</fieldset>
+	
+	<div class="span6">
+		<div class="form-horizontal ">
+			<fieldset>
+				<legend>Payment details</legend>
+				<!-- Button -->
+				<div class="control-group">
+				  <label class="control-label" for="generateButton">Digital Payment</label>
+				  <div class="controls">
+				    <a id="generateButton" name="generateButton" class="btn btn-primary">Generate</a>
+				  </div>
+				</div>
+				
+				<div class="well" id="paymentsContainer"></div>
+			</fieldset>
+		</div>
+	</div>
+	
+	</form>
+	</div>
+</div>
