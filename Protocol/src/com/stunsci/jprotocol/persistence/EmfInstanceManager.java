@@ -1,4 +1,4 @@
-package emf;
+package com.stunsci.jprotocol.persistence;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

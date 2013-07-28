@@ -1,4 +1,4 @@
-package encryption;
+package com.stunsci.jprotocol.encryption;
 
 import java.security.*;
 import java.util.logging.Level;
@@ -13,8 +13,29 @@ public class EncryptionHelper {
         return this.keyPair;
     }
     
-    private static EncryptionHelper instance;
-    private EncryptionHelper(){
+	public String digestString(String toDigest)
+	{
+		String digest = "";
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA-1");
+			digest = byteArrayToHexString(md.digest(toDigest.getBytes()));
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		
+		return digest;
+	}
+    
+	public static String byteArrayToHexString(byte[] b) {
+		  String result = "";
+		  for (int i=0; i < b.length; i++) {
+		    result +=
+		          Integer.toString( ( b[i] & 0xff ) + 0x100, 16).substring( 1 );
+		  }
+		  return result;
+	}
+	
+    public EncryptionHelper(){
         try {
             keyGen = KeyPairGenerator.getInstance("RSA");
             keyGen.initialize(1024);
@@ -26,10 +47,4 @@ public class EncryptionHelper {
         }
     };
     
-    public static EncryptionHelper getInstance() {
-        if(instance == null) {
-        	instance = new EncryptionHelper();
-        }
-        return instance;
-    }
 }

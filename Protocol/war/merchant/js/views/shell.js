@@ -2,11 +2,9 @@ directory.ShellView = Backbone.View.extend({
 
     initialize: function () {
     	_.bindAll(this, 'render', 'search');
-
     },
 
     render: function () {
-    	var self = this;
         this.$el.html(this.template());
         return this;
     },
@@ -17,8 +15,6 @@ directory.ShellView = Backbone.View.extend({
     },
 
     search: function (event) {
-        //var key = $('#searchText').val();
-        //this.searchResults.fetch({reset: true, data: {name: key}});
 
     },
 

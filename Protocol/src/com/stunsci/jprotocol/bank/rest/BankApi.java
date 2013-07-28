@@ -1,4 +1,4 @@
-package com.stunsci.protocol.rest;
+package com.stunsci.jprotocol.bank.rest;
 
 import java.util.List;
 
@@ -11,9 +11,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
 
-import emf.*;
+import com.stunsci.jprotocol.bank.models.*;
+import com.stunsci.jprotocol.persistence.EmfInstanceManager;
 
-import model.Customer;
+
 
 	
 	@Path("bank")
@@ -22,24 +23,24 @@ import model.Customer;
 	
 	@GET
 	@Produces("application/json")
-	@Path("/customers/")
-	public List<Customer> getAllCustomers()
+	@Path("/clients/")
+	public List<Client> getAllClients()
 	{
 	 	EntityManager em = EmfInstanceManager.getInstance().get().createEntityManager();
-	    Query query = em.createQuery("SELECT e FROM "+ Customer.class.getName() +" as e");
+	    Query query = em.createQuery("SELECT e FROM "+ Client.class.getName() +" as e");
 	    @SuppressWarnings("unchecked")
-		List<Customer> results = query.getResultList();
+		List<Client> results = query.getResultList();
 	    return results;
 	}
 	 @POST
 	 @Consumes("application/json")
 	 @Produces("application/json")
-	 @Path("/customers/")
-	 public Customer createCustomer(Customer customer) {
+	 @Path("/clients/")
+	 public Client createClient(Client client) {
 	 	EntityManager em = EmfInstanceManager.getInstance().get().createEntityManager();
 	 	
 	 	try{
-	 		em.persist(customer);
+	 		em.persist(client);
 	 	}catch(Exception ex)
 	 	{
 	 		System.err.println(ex);
@@ -49,18 +50,18 @@ import model.Customer;
 	 		em.close();
 	 	}
 	 	
-	 	return customer;
+	 	return client;
     }
 	 
 	 @PUT
 	 @Consumes("application/json")
-	 @Path("/customers/{id}")
-	 public void updateCustomer(Customer customer)
+	 @Path("/clients/{id}")
+	 public void updateClient(Client client)
 	 {
 		 EntityManager em = EmfInstanceManager.getInstance().get().createEntityManager();
 		 	
 		 	try{
-		 		em.merge(customer);
+		 		em.merge(client);
 		 	}catch(Exception ex)
 		 	{
 		 		System.err.println(ex);

@@ -29,20 +29,28 @@ directory.Router = Backbone.Router.extend({
         "":                 "home",
         "contact":          "contact",
         "products/:id":    "productDetails",
-        "newProduct":		"newProduct"
+        "newProduct":		"newProduct",
+        "*path":			"home"
     },
 
     initialize: function () {
     	_.bindAll(this);
         directory.shellView = new directory.ShellView();
         $('body').html(directory.shellView.render().el);
-        
+    	this.searchResults = new directory.ProductCollection();
+    	this.searchResults.fetch();
+
         this.$content = $("#content");
     },
 
     home: function () {
-    	directory.homeView = new directory.HomeView();
+
+    	directory.homeView = new directory.HomeView({searchResults : this.searchResults});
+
     	directory.homeView.render();
+
+    	Backbone.history.navigate('', {trigger: true});
+    	
         directory.shellView.selectMenuItem('merchant-menu');
     },
 
@@ -59,21 +67,21 @@ directory.Router = Backbone.Router.extend({
     productDetails: function (id) {
     	if(directory.homeView == null)
     		this.home();
-    	
-        directory.homeView.renderProduct(id);
+    	else
+    		directory.homeView.renderProduct(id);
     },
     
     newProduct: function () {
     	if(directory.homeView == null)
     		this.home();
-    	
-        directory.homeView.newProduct();
+    	else
+    		directory.homeView.newProduct();
     }
 
 });
 
 $(document).on("ready", function () {
-    directory.loadTemplates(["HomeView", "ContactView", "ShellView", "ProductView", "ProductSummaryView", "ProductListItemView"],
+    directory.loadTemplates(["HomeView", "ContactView", "ShellView", "ProductListView", "ProductView", "ProductSummaryView", "ProductListItemView"],
         function () {
             directory.router = new directory.Router();
             Backbone.history.start();

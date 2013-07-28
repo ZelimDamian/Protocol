@@ -4,21 +4,13 @@ xmlns="http://java.sun.com/xml/ns/javaee"
 xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
-	<servlet>
-		<servlet-name>Protocol</servlet-name>
-		<servlet-class>com.stunsci.protocol.ProtocolServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Protocol</servlet-name>
-		<url-pattern>/protocol</url-pattern>
-	</servlet-mapping>
 	
   <servlet>
     <servlet-name>Jersey Web Application</servlet-name>
      <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
      <init-param>
      <param-name>com.sun.jersey.config.property.packages</param-name>
-     <param-value>com.stunsci.protocol.rest</param-value>
+     <param-value>com.stunsci.jprotocol.merchant.rest;com.stunsci.jprotocol.bank.rest;com.stunsci.jprotocol.authority.rest;com.stunsci.jprotocol.ttp.rest;</param-value>
      </init-param>
      <init-param>
 	   <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>

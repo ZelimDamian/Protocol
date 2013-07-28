@@ -5,4 +5,4 @@ gaeDeployDialogSettings=
 gaeHrdEnabled=true
 googleCloudSqlEnabled=false
 localDevMySqlEnabled=true
-ormEnhancementInclusions=src/model/*
+ormEnhancementInclusions=src/com/stunsci/jprotocol/bank/models/|src/com/stunsci/jprotocol/merchant/models/|src/com/stunsci/jprotocol/authority/models/|src/com/stunsci/jprotocol/ttp/models/

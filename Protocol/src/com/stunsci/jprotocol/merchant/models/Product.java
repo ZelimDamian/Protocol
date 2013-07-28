@@ -1,4 +1,4 @@
-package model;
+package com.stunsci.jprotocol.merchant.models;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

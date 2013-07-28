@@ -2,7 +2,7 @@
 
 directory.Customer = Backbone.Model.extend({
 
-    urlRoot:"/rest/bank/customers",
+    urlRoot:"/rest/bank/clients",
 
     defaults:function() {
     	return {
@@ -16,6 +16,6 @@ directory.CustomerCollection = Backbone.Collection.extend({
 
     model: directory.Customer,
 
-    url:"/rest/bank/customers"
+    url:"/rest/bank/clients"
 
 });
