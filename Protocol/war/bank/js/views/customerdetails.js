@@ -19,16 +19,21 @@ directory.CustomerSummaryView = Backbone.View.extend({
     render:function () {
         this.$el.html(this.template(this.model.toJSON()));
         
-        $login = this.$el.find('#login');
-        $account = this.$el.find('#account');
+        this.$login = this.$el.find('#login');
+        this.$account = this.$el.find('#account');
+        this.$payment = this.$el.find('#payment');
+        
+        this.$amount = this.$('#amount');
+        this.$payee = this.$('#payee');
+        
         return this;
     },
 
     updateSaveModel:function()
     {
     	var data = {
-    			login : $login.val(),
-    			account: parseInt($account.val())
+    			login : this.$login.val(),
+    			account: parseInt(this.$account.val())
     	};
     	this.model.save(data);
     	this.collection.add(this.model);
@@ -42,11 +47,33 @@ directory.CustomerSummaryView = Backbone.View.extend({
     
     generatePayment: function()
     {
+    	var data = {
+    			amount : this.$amount.val(),
+    			payee : this.$payee.val(),
+    			hash : ''
+    	};
     	
-    },
+    	$.ajax({
+    		  url:"/rest/bank/payments/",
+    		  type:"POST",
+    		  data:JSON.stringify(data),
+    		  contentType:"application/json; charset=utf-8",
+    		  dataType:"json"
+    		}).done(this.successCallback).fail(this.errorCallback);
+	},
     
+	successCallback: function(payment)
+	{
+		this.$payment.text(payment.hash);
+	},
+	
+	errorCallback: function(data, error)
+	{
+		this.$payment.text("Error!!!" + JSON.stringify(error));
+	},
+	
     events: {
-    	'click #generateButton': this.generatePayment
+    	'click #generateButton': 'generatePayment'
     }
 
 });

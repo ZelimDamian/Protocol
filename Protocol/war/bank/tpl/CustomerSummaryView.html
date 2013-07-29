@@ -32,13 +32,28 @@
 				<legend>Payment details</legend>
 				<!-- Button -->
 				<div class="control-group">
+				  <label class="control-label" for="generateButton">Payee</label>
+				  <div class="controls">
+				    <input type="text" id="payee" name="payee" class="input input-large" value=""/>
+				  </div>
+				</div>
+								<!-- Button -->
+				<div class="control-group">
+				  <label class="control-label" for="amount">Amount to pay</label>
+				  <div class="controls">
+					<input type="number" id="amount" name="amount" class="input input-large" value=""/>
+				  </div>
+				</div>
+
+				<!-- Button -->
+				<div class="control-group">
 				  <label class="control-label" for="generateButton">Digital Payment</label>
 				  <div class="controls">
 				    <a id="generateButton" name="generateButton" class="btn btn-primary">Generate</a>
 				  </div>
 				</div>
 				
-				<div class="well" id="paymentsContainer"></div>
+				<div class="well span12" id="paymentsContainer"><p>Payment hash: </p><textarea class="span12" id="payment"></textarea></div>
 			</fieldset>
 		</div>
 	</div>

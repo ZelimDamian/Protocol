@@ -9,17 +9,21 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.GET;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 
 import com.stunsci.jprotocol.bank.models.*;
+import com.stunsci.jprotocol.encryption.EncryptionHelper;
 import com.stunsci.jprotocol.persistence.EmfInstanceManager;
 
 
 
-	
-	@Path("bank")
-	public class BankApi {
-	
+
+@Path("bank")
+public class BankApi {
+
+	EncryptionHelper eh = new EncryptionHelper();
 	
 	@GET
 	@Produces("application/json")
@@ -62,6 +66,85 @@ import com.stunsci.jprotocol.persistence.EmfInstanceManager;
 		 	
 		 	try{
 		 		em.merge(client);
+		 	}catch(Exception ex)
+		 	{
+		 		System.err.println(ex);
+		 	}
+		 	finally
+		 	{
+		 		em.close();
+		 	}
+		 return;
+	 }
+	 
+	@GET
+	@Produces("application/json")
+	@Path("/payments/")
+	public List<Payment> getAllPayments()
+	{
+	 	EntityManager em = EmfInstanceManager.getInstance().get().createEntityManager();
+	    Query query = em.createQuery("SELECT e FROM "+ Client.class.getName() +" as e");
+	    @SuppressWarnings("unchecked")
+		List<Payment> results = query.getResultList();
+	    return results;
+	}
+	 
+	@POST
+	 @Produces("application/json")
+	 @Path("/clients/{id}/payments")
+	 public List<Payment> getPayments(@PathParam("id") Long id) {
+	 	EntityManager em = EmfInstanceManager.getInstance().get().createEntityManager();
+	 	
+	 	List<Payment> payments = null;
+	 	
+	 	try{
+		    Query query = em.createQuery("SELECT p FROM "+ Payment.class.getName() +" p WHERE p.clientId = :clientId");
+		    query.setParameter("clientId", id);
+		    
+	    	payments = query.getResultList();
+		    
+	 	}catch(Exception ex)
+	 	{
+	 		System.err.println(ex);
+	 	}
+	 	finally
+	 	{
+	 		em.close();
+	 	}
+	 	
+	 	return payments;
+    }
+	
+	 @POST
+	 @Consumes("application/json")
+	 @Produces("application/json")
+	 @Path("/payments/")
+	 public Payment createPayment(Payment payment) {
+	 	EntityManager em = EmfInstanceManager.getInstance().get().createEntityManager();
+	 	
+	 	payment.setHash(eh.digestString(payment.getPayee() + payment.getAmount()));
+	 	
+	 	try{
+	 		em.persist(payment);
+	 	}catch(Exception ex) {
+	 		System.err.println(ex);
+	 	}
+	 	finally {
+	 		em.close();
+	 	}
+	 	
+	 	return payment;
+    }
+	 
+	 @PUT
+	 @Consumes("application/json")
+	 @Path("/payments/{id}")
+	 public void updatePayment(Payment payment)
+	 {
+		 EntityManager em = EmfInstanceManager.getInstance().get().createEntityManager();
+		 	
+		 	try{
+		 		em.merge(payment);
 		 	}catch(Exception ex)
 		 	{
 		 		System.err.println(ex);
