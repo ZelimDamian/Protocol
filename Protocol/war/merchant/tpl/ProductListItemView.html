@@ -1,11 +1,16 @@
   <img src="http://lorempixel.com/1280/360/cats/<%= name %>" alt="" class="">
   
     <div class="carousel-caption">
-    	<div class="span6">
-      		<h3 class=""><%= name %></h3>
-      		<p class=""><%= description %></p>
-      	</div>
-      	<div class="span6">
-      		<a class="btn btn-success pull-right" href="#">Buy</a>
-      	</div>
+    <div class="container-fluid">
+	    <div class="row-fluid">
+	    	<div class="span6">
+	      		<h3 class=""><%= name %></h3>
+	      		<p class=""><%= description %></p>
+	      	</div>
+	      	<div class="span6">
+	      		<a class="btn btn-success pull-right" href="#">Buy</a>
+	      		<a class="btn btn-primary pull-right" href="/authority/#verify/<%= cert %>" target='_blank'>Verify</a>
+	      	</div>
+	    </div>
+    </div>
   	</div>

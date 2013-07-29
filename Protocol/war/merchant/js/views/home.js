@@ -6,9 +6,11 @@ directory.HomeView = Backbone.View.extend({
 	{
 		_.bindAll(this);
 
+		this.isMerchantView = options.isMerchantView;
+		
 		this.searchResults = options.searchResults;
         this.searchresultsView = new directory.ProductListView({model: this.searchResults});
-        this.productSummaryView = new directory.ProductSummaryView({collection:this.searchResults});
+        this.productSummaryView = new directory.ProductSummaryView({collection:this.searchResults, isMerchantView : this.isMerchantView});
 	},
 
     events:{

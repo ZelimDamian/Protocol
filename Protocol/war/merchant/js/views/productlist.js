@@ -24,7 +24,8 @@ directory.ProductListView = Backbone.View.extend({
     },
 
 	render:function () {
-	    this.$el.html(this.template(this.model.toJSON()));
+		
+		this.$el.html(this.template(this.model.toJSON()));
 	    
 	    this.$slides = $('.carousel-inner');
 	    _.each(this.model.models, function (product) {
@@ -59,10 +60,13 @@ directory.ProductListItemView = Backbone.View.extend({
     },
     
     render:function () {
-    	if(this.model.collection.indexOf(this.model) == 0)
-    		this.$el.addClass("active");
-    		
-        this.$el.html(this.template(this.model.toJSON()));
+    	
+    	//if(this.model.collection.indexOf(this.model) == 0)
+    		//this.$el.addClass("active");
+    	
+    	var checkedModel = _.extend(this.model.toJSON(), { cert : this.model.get('cert').replace(' ', '') });
+    	
+        this.$el.html(this.template(checkedModel));
         return this;
     }
 

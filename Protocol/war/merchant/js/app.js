@@ -26,7 +26,7 @@ var directory = {
 directory.Router = Backbone.Router.extend({
 
     routes: {
-        "":                 "home",
+        "merchant":          "merchant",
         "contact":          "contact",
         "products/:id":    "productDetails",
         "newProduct":		"newProduct",
@@ -45,15 +45,22 @@ directory.Router = Backbone.Router.extend({
 
     home: function () {
 
-    	directory.homeView = new directory.HomeView({searchResults : this.searchResults});
-
+    	directory.homeView = new directory.HomeView({searchResults : this.searchResults, isMerchantView : false});
+    	
     	directory.homeView.render();
-
-    	Backbone.history.navigate('', {trigger: true});
     	
         directory.shellView.selectMenuItem('merchant-menu');
     },
 
+    merchant: function()
+    {
+    	directory.homeView = new directory.HomeView({searchResults : this.searchResults, isMerchantView : true});
+
+    	directory.homeView.render();
+    	
+        directory.shellView.selectMenuItem('merchant-menu');
+    },
+    
     contact: function () {
         if (!directory.contactView) {
             directory.contactView = new directory.ContactView();
@@ -81,7 +88,7 @@ directory.Router = Backbone.Router.extend({
 });
 
 $(document).on("ready", function () {
-    directory.loadTemplates(["HomeView", "ContactView", "ShellView", "ProductListView", "ProductView", "ProductSummaryView", "ProductListItemView"],
+    directory.loadTemplates(["HomeView", "ProductManagementView", "ContactView", "ShellView", "ProductListView", "ProductView", "ProductSummaryView", "ProductListItemView"],
         function () {
             directory.router = new directory.Router();
             Backbone.history.start();
