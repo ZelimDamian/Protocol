@@ -1,0 +1,53 @@
+<div class="row-fluid">
+	<div>
+	<form class="form-horizontal">
+	<fieldset class="span6">
+	
+	<!-- Form Name -->
+	<legend>Product Details</legend>
+	
+	<!-- Name input-->
+	<div class="control-group">
+	  <label class="control-label" for="login">Name</label>
+	  <div class="controls">
+	    <input id="name" name="name" type="text" placeholder="Product name" class="input-large span12" value="<%= name %>">
+	    
+	  </div>
+	</div>
+	
+	<!-- Description input-->
+	<div class="control-group">
+	  <label class="control-label" for="account">Description</label>
+	  <div class="controls">
+	    <textarea class="span12" id="description" name="description" placeholder="Product description" ><%= description %></textarea>
+	  </div>
+	</div>
+	
+		<!-- Price input-->
+	<div class="control-group">
+	  <label class="control-label" for="account">Price</label>
+	  <div class="controls">
+	    <input class="span12" id="price" name="price" placeholder="Product price" value="<%= price %>" />
+	  </div>
+	</div>
+
+	<a class="btn btn-primary" id="saveProduct">Save</a>
+	
+	</fieldset>
+	
+	<div class="span6">
+		<div class="form-horizontal ">
+			<fieldset>
+				<legend>Certificate details</legend>
+				
+				<div class="well" id="certificateContainer">
+					<textarea class="span12" id="cert"> <%= cert %> </textarea>
+				</div>
+					
+			</fieldset>
+		</div>
+	</div>
+	
+	</form>
+	</div>
+</div>
