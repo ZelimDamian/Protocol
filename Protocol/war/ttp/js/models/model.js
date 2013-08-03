@@ -1,23 +1,26 @@
 
 
-directory.Product = Backbone.Model.extend({
+directory.Payment = Backbone.Model.extend({
 
-    urlRoot:"/rest/merchant/products",
+    urlRoot:"/rest/ttp/payments",
 
     defaults:function() {
     	return {
-    		name : '',
-    		description : '',
-    		price : '',
-    		cert : ''
+			payer: '',
+			payee: '',
+			productId: '',
+			enHash: '',
+			publicKey: '',
+			privateKey: '',
+			jsondata: ''
     	};
     }
 });
 
-directory.ProductCollection = Backbone.Collection.extend({
+directory.PaymentCollection = Backbone.Collection.extend({
 
-    model: directory.Product,
+    model: directory.Payment,
 
-    url:"/rest/merchant/products"
+    url:"/rest/ttp/payments"
 
 });

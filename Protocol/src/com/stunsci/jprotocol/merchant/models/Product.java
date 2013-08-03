@@ -5,7 +5,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+import com.google.appengine.api.datastore.Blob;
+
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Product {
 
 	@Id
@@ -14,6 +19,7 @@ public class Product {
 	private String name;
 	private String description;
 	private int price;
+	private Blob content;
 	private String cert;
 	
 	public Product()
@@ -60,7 +66,13 @@ public class Product {
 	public void setCert(String cert) {
 		this.cert = cert;
 	}
-	
-	
+
+	public Blob getContent() {
+		return content;
+	}
+
+	public void setContent(Blob content) {
+		this.content = content;
+	}
 	
 } 

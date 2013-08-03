@@ -37,15 +37,13 @@ directory.Router = Backbone.Router.extend({
     	_.bindAll(this);
         directory.shellView = new directory.ShellView();
         $('body').html(directory.shellView.render().el);
-    	this.searchResults = new directory.ProductCollection();
-    	this.searchResults.fetch();
 
         this.$content = $("#content");
     },
 
     home: function () {
 
-    	directory.homeView = new directory.HomeView({searchResults : this.searchResults});
+    	directory.homeView = new directory.HomeView({});
 
     	directory.homeView.render();
 
@@ -81,7 +79,14 @@ directory.Router = Backbone.Router.extend({
 });
 
 $(document).on("ready", function () {
-    directory.loadTemplates(["HomeView", "ContactView", "ShellView", "ProductListView", "ProductView", "ProductSummaryView", "ProductListItemView"],
+    directory.loadTemplates(["HomeView",
+                             "TrustedPartyView",
+                             "ContactView",
+                             "ShellView",
+             				 "ProductListView",
+             				 "ProductView",
+                             "ProductSummaryView",
+                             "ProductListItemView"],
         function () {
             directory.router = new directory.Router();
             Backbone.history.start();

@@ -22,7 +22,7 @@ import com.stunsci.jprotocol.persistence.EmfInstanceManager;
 
 @Path("bank")
 public class BankApi {
-
+	
 	EncryptionHelper eh = new EncryptionHelper();
 	
 	@GET
@@ -101,19 +101,39 @@ public class BankApi {
 		    Query query = em.createQuery("SELECT p FROM "+ Payment.class.getName() +" p WHERE p.clientId = :clientId");
 		    query.setParameter("clientId", id);
 		    
+		    
 	    	payments = query.getResultList();
 		    
-	 	}catch(Exception ex)
-	 	{
+	 	} catch(Exception ex) {
 	 		System.err.println(ex);
 	 	}
-	 	finally
-	 	{
+	 	finally {
 	 		em.close();
 	 	}
 	 	
 	 	return payments;
     }
+	
+	@GET
+	@Consumes("application/json")
+	@Path("/payments/verify/")
+	public boolean verifyPayment(Payment payment)
+	{
+	 	EntityManager em = EmfInstanceManager.getInstance().get().createEntityManager();
+	 	
+	 	try{
+	 		Payment found = em.find(Payment.class, payment.getId());
+	 		if(found.equals(payment))
+	 			return true;
+	 	}catch(Exception ex) {
+	 		System.err.println(ex);
+	 	}
+	 	finally {
+	 		em.close();
+	 	}
+	 	
+	 	return false;	
+	}
 	
 	 @POST
 	 @Consumes("application/json")
@@ -121,8 +141,18 @@ public class BankApi {
 	 @Path("/payments/")
 	 public Payment createPayment(Payment payment) {
 	 	EntityManager em = EmfInstanceManager.getInstance().get().createEntityManager();
+	 	EncryptionHelper encryption = new EncryptionHelper();
 	 	
-	 	payment.setHash(eh.digestString(payment.getPayee() + payment.getAmount()));
+	 	payment.setPrivateKey(encryption.getPrivateKey());
+	 	payment.setPublicKey(encryption.getPublicKey());
+	 	
+	 	payment.setTimeStamp(new java.util.Date());
+	 	
+	 	String digestedPayment = eh.digestString(payment.getPayee() + payment.getAmount() + payment.getTimeStamp().toString()); 
+	 	payment.setHash(digestedPayment);
+	 	
+	 	String enHash = encryption.encryptStringWithPublicKey(digestedPayment);
+	 	payment.setEnHash(enHash);
 	 	
 	 	try{
 	 		em.persist(payment);
@@ -134,25 +164,25 @@ public class BankApi {
 	 	}
 	 	
 	 	return payment;
-    }
+	}
 	 
 	 @PUT
 	 @Consumes("application/json")
 	 @Path("/payments/{id}")
-	 public void updatePayment(Payment payment)
-	 {
-		 EntityManager em = EmfInstanceManager.getInstance().get().createEntityManager();
-		 	
-		 	try{
-		 		em.merge(payment);
-		 	}catch(Exception ex)
-		 	{
-		 		System.err.println(ex);
-		 	}
-		 	finally
-		 	{
-		 		em.close();
-		 	}
-		 return;
-	 }
-}
+		 public void updatePayment(Payment payment)
+		 {
+			 EntityManager em = EmfInstanceManager.getInstance().get().createEntityManager();
+			 	
+			 	try{
+			 		em.merge(payment);
+			 	}catch(Exception ex)
+			 	{
+			 		System.err.println(ex);
+			 	}
+			 	finally
+			 	{
+			 		em.close();
+			 	}
+			 return;
+		 }
+	}

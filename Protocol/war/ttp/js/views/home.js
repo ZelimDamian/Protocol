@@ -7,21 +7,26 @@ directory.HomeView = Backbone.View.extend({
 		_.bindAll(this);
 
 		this.searchResults = options.searchResults;
-        this.searchresultsView = new directory.ProductListView({model: this.searchResults});
-        this.productSummaryView = new directory.ProductSummaryView({collection:this.searchResults});
+        this.trustedPartyView = new directory.TrustedPartyView(); 
 	},
 
     events:{
-        'click #saveProduct': 'saveProduct'
+        'click #saveProduct': 'saveProduct',
+        'click #hideHeroButton': 'removeHero'
     },
 
     render:function () {
         this.$el.html(this.template());
-        this.$el.find('.list-container').html(this.searchresultsView.render().el);
-        this.$el.find('.product-container').html(this.productSummaryView.render().el);
+        this.$el.find('.trustedPartyView').html(this.trustedPartyView.render().el);
+        
         return this;
     },
 
+    removeHero: function()
+    {
+    	this.$('.hero-unit').slideUp();
+    },
+    
     newProduct:function(){
     	
     	var product = new directory.Product();
@@ -30,8 +35,7 @@ directory.HomeView = Backbone.View.extend({
     
     renderProduct:function(id){
     	var product = this.searchResults.get(id);
-    	if(!product)
-    	{
+    	if(!product) {
     		product = new directory.Product({id:id});
     		product.fetch();
 		}

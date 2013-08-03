@@ -12,7 +12,8 @@ directory.HomeView = Backbone.View.extend({
 	},
 
     events:{
-        'click #saveCustomer': 'saveCustomer'
+        'click #saveCustomer': 'saveCustomer',
+        'click #hideHeroButton' : 'hideHero'
     },
 
     render:function () {
@@ -22,6 +23,10 @@ directory.HomeView = Backbone.View.extend({
         return this;
     },
 
+    hideHero: function() {
+    	this.$('.hero-unit').slideUp();
+    },
+    
     newCustomer:function(){
     	var customer = new directory.Customer();
     	this.customerSummaryView.setModel(customer);

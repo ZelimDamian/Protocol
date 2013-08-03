@@ -81,7 +81,7 @@ public class AuthorityApi {
 	 @POST
 	 @Produces("application/json")
 	 @Path("/certify/")
-	 public String certifyProduct(@FormParam("id") int id, @FormParam("merchant") String merchant) {
+	 public String certifyProduct(@FormParam("id") Long id, @FormParam("merchant") String merchant) {
 	 	EntityManager em = EmfInstanceManager.getInstance().get().createEntityManager();
 
 	 	Certificate cert = new Certificate();

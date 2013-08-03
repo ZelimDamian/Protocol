@@ -61,8 +61,8 @@ directory.ProductListItemView = Backbone.View.extend({
     
     render:function () {
     	
-    	//if(this.model.collection.indexOf(this.model) == 0)
-    		//this.$el.addClass("active");
+    	if(this.model.collection.indexOf(this.model) == 0)
+    		this.$el.addClass("active");
     	
     	var checkedModel = _.extend(this.model.toJSON(), { cert : this.model.get('cert').replace(' ', '') });
     	

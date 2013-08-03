@@ -1,5 +1,4 @@
 <div class="row">
-	<div>
 	<form class="form-horizontal">
 	<fieldset class="span6">
 	
@@ -26,10 +25,9 @@
 	
 	</fieldset>
 	
-	<div class="span6">
-		<div class="form-horizontal ">
-			<fieldset>
+			<fieldset class="span6 ">
 				<legend>Payment details</legend>
+				
 				<!-- Button -->
 				<div class="control-group">
 				  <label class="control-label" for="generateButton">Payee</label>
@@ -37,7 +35,7 @@
 				    <input type="text" id="payee" name="payee" class="input input-large" value=""/>
 				  </div>
 				</div>
-								<!-- Button -->
+				<!-- Button -->
 				<div class="control-group">
 				  <label class="control-label" for="amount">Amount to pay</label>
 				  <div class="controls">
@@ -53,11 +51,8 @@
 				  </div>
 				</div>
 				
-				<div class="well span12" id="paymentsContainer"><p>Payment hash: </p><textarea class="span12" id="payment"></textarea></div>
 			</fieldset>
-		</div>
-	</div>
-	
+		<div id="paymentContainer"></div>
 	</form>
 	</div>
 </div>

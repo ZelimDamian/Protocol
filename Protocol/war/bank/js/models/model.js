@@ -1,4 +1,16 @@
-
+directory.Payment = Backbone.Model.extend({
+	defaults: function(){
+		return {
+			amount : 0,
+			payer: '',
+			payee: '',
+			hash: '',
+			enHash: '',
+			publicKey: '',
+			privateKey: ''
+		};
+	}
+});
 
 directory.Customer = Backbone.Model.extend({
 

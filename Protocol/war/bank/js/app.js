@@ -73,7 +73,7 @@ directory.Router = Backbone.Router.extend({
 });
 
 $(document).on("ready", function () {
-    directory.loadTemplates(["HomeView", "ContactView", "ShellView", "CustomerView", "CustomerSummaryView", "CustomerListItemView"],
+    directory.loadTemplates(["HomeView", "PaymentView", "ContactView", "ShellView", "CustomerView", "CustomerSummaryView", "CustomerListItemView"],
         function () {
             directory.router = new directory.Router();
             Backbone.history.start();

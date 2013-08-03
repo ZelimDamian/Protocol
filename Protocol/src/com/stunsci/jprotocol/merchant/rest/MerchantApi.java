@@ -12,7 +12,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import com.stunsci.jprotocol.merchant.models.Product;
+import com.stunsci.jprotocol.encryption.EncryptionHelper;
+import com.stunsci.jprotocol.merchant.models.*;
 import com.stunsci.jprotocol.persistence.EmfInstanceManager;
 
 	@Path("merchant")
@@ -84,4 +85,36 @@ import com.stunsci.jprotocol.persistence.EmfInstanceManager;
 		 	}
 		 return;
 	 }
-}
+	 
+	 @POST
+	 @Consumes("application/json")
+	 @Produces("application/json")
+	 @Path("/orders/")
+	 public Product createOrder(Order order) {
+	 	EntityManager em = EmfInstanceManager.getInstance().get().createEntityManager();
+	 	EncryptionHelper encryption = new EncryptionHelper();
+
+	 	Product product = null;
+	 	
+	 	try{
+	 		product = em.find(Product.class, order.getProductId());
+	 		
+	 		byte[] content = product.getContent().getBytes();
+	 		
+	 		String encryptedContent = encryption.encryptStringWithSymKey(content);
+	 		
+	 		String encryptedAesKey = encryption.getEncryptedSymKey();
+	 		
+	 	}catch(Exception ex)
+	 	{
+	 		System.err.println(ex);
+	 	}
+	 	finally
+	 	{
+	 		em.close();
+	 	}
+	 	
+	 	return product;
+    }
+} 
+	

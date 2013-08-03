@@ -7,6 +7,14 @@ directory.CustomerView = Backbone.View.extend({
     }
 });
 
+directory.PaymentView = Backbone.View.extend({
+	render: function() {
+		this.$el.html(this.template(this.model.toJSON()));
+		this.$('#jsonPayment').text(JSON.stringify(this.model.toJSON()));
+		return this;
+	}
+});
+
 directory.CustomerSummaryView = Backbone.View.extend({
 
     initialize:function (options) {
@@ -14,14 +22,18 @@ directory.CustomerSummaryView = Backbone.View.extend({
     	this.model = new directory.Customer();
         this.model.on("change", this.render, this);
         this.collection = options.collection;
+        this.paymentView = new directory.PaymentView({model: new directory.Payment()});
     },
 
-    render:function () {
+    render:function (model) {
+    	if(model !== undefined)
+    		this.model = model;
+    	
         this.$el.html(this.template(this.model.toJSON()));
         
         this.$login = this.$el.find('#login');
         this.$account = this.$el.find('#account');
-        this.$payment = this.$el.find('#payment');
+        this.$payment = this.$el.find('#paymentContainer');
         
         this.$amount = this.$('#amount');
         this.$payee = this.$('#payee');
@@ -47,9 +59,17 @@ directory.CustomerSummaryView = Backbone.View.extend({
     
     generatePayment: function()
     {
+    	var payer = this.model.id;
+    	if(typeof(payer) === undefined)
+    	{
+    		console.error("Unable to generate payment"); 
+    		return;
+    	}
+    	
     	var data = {
     			amount : this.$amount.val(),
     			payee : this.$payee.val(),
+    			payer: payer,
     			hash : ''
     	};
     	
@@ -64,7 +84,8 @@ directory.CustomerSummaryView = Backbone.View.extend({
     
 	successCallback: function(payment)
 	{
-		this.$payment.text(payment.hash);
+		this.paymentView.model.set(payment);
+        this.$("#paymentContainer").hide().html(this.paymentView.render().el).slideDown();
 	},
 	
 	errorCallback: function(data, error)

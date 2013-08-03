@@ -6,6 +6,18 @@
 	<!-- Form Name -->
 	<legend>Product Details</legend>
 	
+	<% if(typeof(id) !== 'undefined') { %>
+	<!-- Id input-->
+	<div class="control-group">
+	  <label class="control-label" for="id">Id</label>
+	  <div class="controls">
+	    <input id="id" name="id" type="text" placeholder="Product id" class="input-large span12" value="<%= id %>" readonly>
+	    
+	  </div>
+	</div>
+	
+	<% } %>
+	
 	<!-- Name input-->
 	<div class="control-group">
 	  <label class="control-label" for="login">Name</label>
