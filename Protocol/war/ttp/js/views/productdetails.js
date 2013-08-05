@@ -23,8 +23,6 @@ directory.ProductSummaryView = Backbone.View.extend({
         $price = this.$el.find('#price');
         $cert = this.$el.find('#cert');
         
-        //this.$("#createProduct").click(this.createProduct);
-
         return this;
     },
 

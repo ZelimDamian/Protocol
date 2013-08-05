@@ -23,11 +23,19 @@
 	  </div>
 	</div>
 	
-		<!-- Price input-->
+	<!-- Price input-->
 	<div class="control-group">
 	  <label class="control-label" for="account">Price</label>
 	  <div class="controls">
 	    <input id="price" name="price" type="text" placeholder="Product price" class="input-large span12" value="<%= price %>" />
+	  </div>
+	</div>
+
+	<!-- Content input-->
+	<div class="control-group">
+	  <label class="control-label" for="content">Content</label>
+	  <div class="controls">
+	    <textarea class="span12" rows="20" id="content" name="content" placeholder="Product content" ><%= content %></textarea>
 	  </div>
 	</div>
 
@@ -40,6 +48,14 @@
 		<div class="form-horizontal ">
 			<fieldset>
 				<legend>Certificate details</legend>
+				
+						<!-- Price input-->
+				<div class="control-group">
+				  <label class="control-label" for="merchant">Merchant's name</label>
+				  <div class="controls">
+				    <input id="merchant" name="merchant" type="text" placeholder="Merchant's name" class="input-large span12" value="" />
+				  </div>
+				</div>
 				
 				<div class="well" id="certificateContainer">
 					<textarea class="span12" id="cert"> </textarea>

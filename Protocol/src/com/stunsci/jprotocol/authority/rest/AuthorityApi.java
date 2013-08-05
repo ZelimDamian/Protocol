@@ -1,5 +1,6 @@
 package com.stunsci.jprotocol.authority.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -13,6 +14,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.GET;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 
 import com.stunsci.jprotocol.authority.models.*;
@@ -35,6 +37,8 @@ public class AuthorityApi {
 	    
 	    @SuppressWarnings("unchecked")
 		List<DProduct> results = query.getResultList();
+	    List<DProduct> resultsDebug = new ArrayList<DProduct>();
+	    resultsDebug.addAll(results);
 	    return results;
 	}
 	 @POST
@@ -76,6 +80,27 @@ public class AuthorityApi {
 		 		em.close();
 		 	}
 		 return;
+	 }
+	 
+	 @GET
+	 @Produces("application/json")
+	 @Path("/products/{id}")
+	 public DProduct findProduct(@PathParam("id") Long id)
+	 {
+		 EntityManager em = EmfInstanceManager.getInstance().get().createEntityManager();
+		 	
+		 DProduct product = null;
+		 	try{
+		 		product = em.find(DProduct.class, id);
+		 	}catch(Exception ex)
+		 	{
+		 		System.err.println(ex);
+		 	}
+		 	finally
+		 	{
+		 		em.close();
+		 	}
+		 return product;
 	 }
 	 
 	 @POST
@@ -135,7 +160,8 @@ public class AuthorityApi {
 				verification.setProductName(product.getName());
 				verification.setProductDescription(product.getDescription());
 				verification.setMerchant(certificate.getMerchant());
-						
+				verification.setCert(hash);
+				
 		 	}catch(Exception ex)
 		 	{
 		 		System.err.println(ex);

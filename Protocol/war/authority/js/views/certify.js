@@ -46,16 +46,19 @@ directory.CertifyView = Backbone.View.extend({
 	{
 		if(this.productSummaryView.model.id)
 		{
-			var $cert = this.productSummaryView.$el.find('#cert');
+			
 			$.post("/rest/authority/certify/",
 				  {
-					merchant : "Merchant",
+					merchant : this.$("#merchant").val(),
 					id : this.productSummaryView.model.id
 				  },
-				  function(hash,status){
-					  $cert.text(hash);
-				  }, "text");
+				  this.successCallback, "text");
 		}
+	},
+	
+	successCallback: function(hash, status){
+		var $cert = this.productSummaryView.$el.find('#cert');
+		$cert.text(hash);
 	},
 	
     showMeBtnClick:function () {

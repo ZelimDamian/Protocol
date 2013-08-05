@@ -1,6 +1,6 @@
 package com.stunsci.jprotocol.bank.models;
 
-import java.util.Date;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,12 +18,13 @@ public class Payment {
 	private Long id;
 	private int amount;
 	private Long payer;
+	private String payerName;
 	private String payee;
 	private String hash;
 	private String enHash;
 	private String publicKey;
 	private String privateKey;
-	private Date timeStamp;
+	private Long timeStamp;
 	private Long productId;
 	
 	public Payment()
@@ -95,11 +96,11 @@ public class Payment {
 		this.privateKey = privateKey;
 	}
 
-	public Date getTimeStamp() {
+	public Long getTimeStamp() {
 		return timeStamp;
 	}
 
-	public void setTimeStamp(Date timeStamp) {
+	public void setTimeStamp(Long timeStamp) {
 		this.timeStamp = timeStamp;
 	}
 
@@ -111,18 +112,26 @@ public class Payment {
 		this.productId = productId;
 	}
 
+	public String getPayerName() {
+		return payerName;
+	}
+
+	public void setPayerName(String payerName) {
+		this.payerName = payerName;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + amount;
 		result = prime * result + ((enHash == null) ? 0 : enHash.hashCode());
-		result = prime * result + ((hash == null) ? 0 : hash.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((payee == null) ? 0 : payee.hashCode());
 		result = prime * result + ((payer == null) ? 0 : payer.hashCode());
 		result = prime * result
 				+ ((privateKey == null) ? 0 : privateKey.hashCode());
+		result = prime * result
+				+ ((productId == null) ? 0 : productId.hashCode());
 		result = prime * result
 				+ ((publicKey == null) ? 0 : publicKey.hashCode());
 		result = prime * result
@@ -145,16 +154,6 @@ public class Payment {
 			if (other.enHash != null)
 				return false;
 		} else if (!enHash.equals(other.enHash))
-			return false;
-		if (hash == null) {
-			if (other.hash != null)
-				return false;
-		} else if (!hash.equals(other.hash))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
 			return false;
 		if (payee == null) {
 			if (other.payee != null)
@@ -183,5 +182,6 @@ public class Payment {
 			return false;
 		return true;
 	}
+
 	
 } 

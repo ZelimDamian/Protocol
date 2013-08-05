@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Java Protocol Implementation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="bank/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="#">Protocol Implementation</a>
+
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    <li class="home-menu active"><a href="#">Home</a></li>
+                    <li class="bank-menu"><a href="/bank/">Bank</a></li>
+					<li class="merchant-menu"><a href="/merchant/">Merchant</a></li>
+					<li class="ttp-menu"><a href="/ttp/">Trusted Party</a></li>
+					<li class="autority-menu"><a href="/authority/">Certificate Authority</a></li>
+                    <li class="about-menu"><a href="/about.html">About</a></li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row-fluid">
+        <div id="content" class="span12>">
+        <div class="hero-unit" style="padding-bottom: 20px;">
+	        <h1>Java Protocol Implementation</h1>
+	        <p>Java Protocol Implementation for improving financial safety of online shopping.</p>
+		</div>
+
+
+		<div class="row-fluid">
+    		<section>
+    			<legend> <h2> Some of the many assumptions </h2></legend>
+    			<ol>
+    				<li>There is only one Merchant and his name is "Merchant".</li>
+    				<li>Prices are integers.</li>
+    				<li>The forms are filled correctly always.</li>
+    			</ol>
+    		</section>
+    			
+    			<legend> <h2> A little manual </h2></legend>
+    			<h4> A Run-Through test:</h4>
+    			<ol>
+    				<li>Go to the bank website. Wait for the list of customers to appear (this may take time due to AppEngine server load).</li>
+    				<li>Generate a payment in the bank by selecting a bank client from the list and filling the form with payee being "Merchant" and whatever price.</li>
+    				<li>Copy the JSON code of the payment.</li>
+    				<li>Go to merchants website and choose the desired product.</li>
+    				<li>Optional: Click "Verify" to visit CA's website to see verification of the product.</li>
+    				<li>Click buy in the list of products to the TTP website</li>
+    				<li>Product id is already in place now you only need to paste the copied JSON into the text area and press "Parse JSON".</li>
+    				<li>The form is filled with the required data. Now press "Initiate protocol" button.</li>
+    				<li>Notice the encrypted contents of the product. Copy them somewhere.</li>
+    				<li>Optional: Click "Verify with CA" to make final verification. </li>
+    				<li>Click "Make payment"</li>
+    				<li>Use the received private key to decrypt the symmetric key. </li>
+    				<li>Use the decrypted symmteric key to decrypt the product contents.</li>
+    			</ol>
+    		</section>
+        </div>
+    </div>
+</div>
+
+<script src="bank/lib/jquery-1.9.1.min.js"></script>
+<script src="bank/lib/underscore-min.js"></script>
+<script src="bank/lib/backbone-min.js"></script>
+<script src="bank/bootstrap/js/bootstrap.js"></script>
+
+</body>
+</html>

@@ -28,7 +28,8 @@ directory.Router = Backbone.Router.extend({
     routes: {
         "":                 "home",
         "contact":          "contact",
-        "products/:id":    "productDetails",
+        "products/:id":    	"productDetails",
+        "initiate/:id":		"initiate",
         "newProduct":		"newProduct",
         "*path":			"home"
     },
@@ -47,11 +48,18 @@ directory.Router = Backbone.Router.extend({
 
     	directory.homeView.render();
 
-    	Backbone.history.navigate('', {trigger: true});
+    	//Backbone.history.navigate('', {trigger: true});
     	
         directory.shellView.selectMenuItem('ttp-menu');
     },
 
+    initiate: function(id){
+    	directory.homeView = new directory.HomeView({});
+
+    	directory.homeView.trustedPartyView.productId = id;
+    	directory.homeView.render();
+    },
+    
     contact: function () {
         if (!directory.contactView) {
             directory.contactView = new directory.ContactView();
@@ -80,6 +88,7 @@ directory.Router = Backbone.Router.extend({
 
 $(document).on("ready", function () {
     directory.loadTemplates(["HomeView",
+                             "KeyExchangeView",
                              "TrustedPartyView",
                              "ContactView",
                              "ShellView",

@@ -9,7 +9,7 @@ directory.ProductView = Backbone.View.extend({
 directory.ProductManagementView = Backbone.View.extend({
 
     render: function () {
-        this.$el.html(this.template());
+        this.$el.html(this.template(this.model));
         return this;
     },
     
@@ -38,12 +38,14 @@ directory.ProductSummaryView = Backbone.View.extend({
         this.$el.html(this.template(this.model.toJSON()));
         
         if(this.isMerchantView)
-        	this.$el.find('.controlsContainer').html(new directory.ProductManagementView().render().el);
+        	this.$el.find('.controlsContainer').html(new directory.ProductManagementView(
+        			{model: {content: this.model.toJSON().content}}).render().el);
         
-        $name = this.$el.find('#name');
-        $desc = this.$el.find('#description');
-        $price = this.$el.find('#price');
-        $cert = this.$el.find('#cert');
+        this.$name = this.$el.find('#name');
+        this.$desc = this.$el.find('#description');
+        this.$price = this.$el.find('#price');
+        this.$cert = this.$el.find('#cert');
+        this.$content = this.$('#content');
         
         //this.$("#createProduct").click(this.createProduct);
 
@@ -53,10 +55,11 @@ directory.ProductSummaryView = Backbone.View.extend({
     updateSaveModel:function()
     {
     	var data = {
-    			name : $name.val(),
-    			description : $desc.val(),
-    			price: parseInt($price.val()),
-    			cert : $cert.val()
+    			name : this.$name.val(),
+    			description : this.$desc.val(),
+    			price: parseInt(this.$price.val()),
+    			cert : this.$cert.val(),
+    			content: this.$content.val()
     	};
     	this.model.save(data);
     	this.collection.add(this.model);

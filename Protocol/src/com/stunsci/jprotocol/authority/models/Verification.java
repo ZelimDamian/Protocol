@@ -8,6 +8,7 @@ public class Verification {
 	private String merchant;
 	private String productName;
 	private String productDescription;
+	private String cert;
 	private Long price;
 	
 	public String getMerchant() {
@@ -27,6 +28,12 @@ public class Verification {
 	}
 	public void setProductDescription(String productDescription) {
 		this.productDescription = productDescription;
+	}
+	public String getCert() {
+		return cert;
+	}
+	public void setCert(String cert) {
+		this.cert = cert;
 	}
 	public Long getPrice(){
 		return this.price;

@@ -1,0 +1,66 @@
+<div class="form well span12">
+	<fieldset>
+		<p class="lead">Electronic cash: </p>
+		
+			<!-- Payee -->
+		<div class="control-group">
+		  <label class="control-label" for="payee">Payee</label>
+		  <div class="controls">
+			<textarea placeholder="Payee" class="span12" id="payee"><%= payee %></textarea>
+		  </div>
+		</div>
+		
+		
+		<!-- Payer -->
+		<div class="control-group">
+		  <label class="control-label" for="payer">Payer</label>
+		  <div class="controls">
+			<textarea placeholder="Payer ID" class="span12" id="payer"><%= payer %></textarea>
+		  </div>
+		</div>
+		
+		<!-- Hash -->
+		<div class="control-group">
+		  <label class="control-label" for="hash">Hash</label>
+		  <div class="controls">
+			<textarea placeholder="Payment hash" class="span12" id="hash"><%= hash %></textarea>
+		  </div>
+		</div>
+		
+		<!-- En hash -->
+		<div class="control-group">
+		  <label class="control-label" for="enHash">Encrypted hash</label>
+		  <div class="controls">
+			<textarea placeholder="Encrypted payment hash" class="span12" id="enHash"><%= enHash %></textarea>
+		  </div>
+		</div>
+		
+		<!-- Public key -->
+		<div class="control-group">
+		  <label class="control-label" for="publicKey">Public key</label>
+		  <div class="controls">
+			<textarea placeholder="Public key" class="span12" id="publicKey" rows="10"><%= publicKey %></textarea>
+		  </div>
+		</div>
+		
+			
+		<!-- Private key -->
+		<div class="control-group">
+		  <label class="control-label" for="privateKey">Private key</label>
+		  <div class="controls">
+			<textarea placeholder="Priavte key" class="span12" id="privateKey" rows="10"><%= privateKey %></textarea>
+		  </div>
+		</div>
+	</fieldset>
+	
+	<fieldset>
+		<legend>JSON representation of the payment</legend>
+		<!-- Private key -->
+		<div class="control-group">
+		  <label class="control-label" for="jsonPayment">JSON Payment</label>
+		  <div class="controls">
+			<textarea placeholder="Payment JSON" class="span12" id="jsonPayment" rows="15"></textarea>
+		  </div>
+		</div>
+	</fieldset>
+</div>

@@ -43,7 +43,7 @@ directory.ProductListItemView = Backbone.View.extend({
 	
 	events:{
     	'click' : function(element) {
-    			Backbone.history.navigate("#products/" + this.model.id, {trigger: true});
+    			directory.router.navigate("#products/" + this.model.id, {trigger: true});
     		}
     },
     
@@ -56,7 +56,7 @@ directory.ProductListItemView = Backbone.View.extend({
     sync:function()
     {
     	this.render();
-    	Backbone.history.navigate('#products/' + this.model.id);
+    	Backbone.history.navigate('#products/' + this.model.id, true);
     },
     
     render:function () {

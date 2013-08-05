@@ -1,0 +1,95 @@
+<div class="row-fluid">
+	<form class="form-horizontal">
+		
+		<fieldset class="span6">
+		
+		<!-- Form Name -->
+		<legend>Encrypted Product</legend>
+
+		
+		<!-- Name input-->
+		<div class="control-group">
+		  <label class="control-label" for="name">Product name</label>
+		  <div class="controls">
+		    <input id="name" name="name" type="text" placeholder="Product name" class="input-large span12" value="<%= name %>">
+		  </div>
+		</div>
+		
+		<!-- Description input-->
+		<div class="control-group">
+		  <label class="control-label" for="description">Product description</label>
+		  <div class="controls">
+		    <textarea class="span12" id="description" class="input-large span12" name="description" placeholder="Product description" ><%= description %></textarea>
+		  </div>
+		</div>
+		
+		<!-- Description input-->
+		<div class="control-group">
+		  <label class="control-label" for="enSymKey">Encrypted symmetric key</label>
+		  <div class="controls">
+		    <textarea class="span12" id="enSymKey" class="input-large span12" name="enSymKey" placeholder="Encrypted key" ><%= enSymKey %></textarea>
+		  </div>
+		</div>
+		
+		<!-- Price input-->
+		<div class="control-group">
+		  <label class="control-label" for="content">Encrypted product content</label>
+		  <div class="controls">
+				<textarea class="span12" id="content" name="content" placeholder="Encrypted product content" rows="20"><%= content %></textarea>
+		  </div>
+		</div>
+		
+		<!-- Timstamp input-->
+		<div class="control-group">
+		  <label class="control-label" for="productId">Timestamp</label>
+		  <div class="controls">
+		    <input type="text" class="span12" id="timestamp" class="input-large span12" name="timestamp" placeholder="Time stamp" value="<%= timeStamp %>"/>
+		  </div>
+		</div>
+		
+		</fieldset>
+		
+			<fieldset class="span6">
+			<legend>Proceed with the purchase</legend>
+
+			<div class="row-fluid">	
+				<div class="well span12" id="certificateContainer">
+					<ul>
+						<li>
+							<p > Your secure order SHA-1 hash is: </p>
+							<p class="lead"><%= orderHash %></p>
+						</li>
+						<li>
+							<p > Merchant's secure product SHA-1 hash is: </p>
+							<p class="lead"><%= cert %></p>
+						</li>
+						<li>
+							<p > You are encouraged to verify the product with the CA: </p>
+							<div class="span3"></div><a href="http://localhost:8888/authority/#verify/<%= cert %>" target="_blank" class="btn btn-warning btn-large span6" id="initiateProtocolJSON">Verify with CA</a>
+						</li>
+					</ul>				
+				</div>
+			</div>
+			
+			<div class="row-fluid">
+				<p>
+					<a class="btn btn-success btn-large span12" id="makePaymentButton">Make payment</a>
+				</p>
+			</div>
+			
+			<div class="row-fluid">
+				<div class="alert alert-success span12" id="afterPaymentContainer">
+					<h3 class="text-success"> Success! </h3>
+					<p>The private key to decrypt the symmetric key: </p>
+					
+						<textarea rows="20" class="lead span12" id="privateKeyContainer"></textarea>
+					<h4 > Decryption </h4>
+					<p> After decrypting the symmetric key use it do decrypt the product contents </p>
+					<p> Alternatively use our service to process decryption for you. </p>
+					<a class="btn btn-warning btn-large span12" id="makeDecryptionButton">NOT IMPLEMENTED!</a>
+				</div>
+			</div>			
+		</fieldset>
+		
+	</form>
+</div>

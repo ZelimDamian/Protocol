@@ -8,7 +8,9 @@
 	      		<p class=""><%= description %></p>
 	      	</div>
 	      	<div class="span6">
-	      		<a class="btn btn-success pull-right" href="#">Buy</a>
+	      	<% if(typeof(id) !== 'undefined') { %>
+	      		<a class="btn btn-success pull-right" href="/ttp/#initiate/<%= id %>" target='_blank'>Buy</a>
+      		<% } %>
 	      		<a class="btn btn-primary pull-right" href="/authority/#verify/<%= cert %>" target='_blank'>Verify</a>
 	      	</div>
 	    </div>

@@ -7,7 +7,8 @@ directory.HomeView = Backbone.View.extend({
 		_.bindAll(this);
 
 		this.searchResults = options.searchResults;
-        this.trustedPartyView = new directory.TrustedPartyView(); 
+        this.trustedPartyView = new directory.TrustedPartyView();
+        this.keyExchangeView = new directory.KeyExchangeView();
 	},
 
     events:{
@@ -24,7 +25,7 @@ directory.HomeView = Backbone.View.extend({
 
     removeHero: function()
     {
-    	this.$('.hero-unit').slideUp();
+    	this.$('.hero-unit').slideUp('slow');
     },
     
     newProduct:function(){
@@ -43,6 +44,17 @@ directory.HomeView = Backbone.View.extend({
     	this.productSummaryView.render();
 	},
     
+	renderKeyExchangeView: function(modelData)
+	{
+		this.keyExchangeView.model.set(modelData);
+		
+		var self = this;
+		
+		this.trustedPartyView.$el.slideUp('slow', function(){
+			self.$('#keyExchangeContainer').hide().html(self.keyExchangeView.render().el).slideDown('slow');
+		});
+	},
+	
 	saveProduct: function()
 	{
 		this.productSummaryView.updateSaveModel();

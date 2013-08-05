@@ -7,6 +7,8 @@ import javax.persistence.Id;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+import com.google.appengine.api.datastore.Text;
+
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DProduct {
@@ -17,14 +19,11 @@ public class DProduct {
 	private String name;
 	private String description;
 	private int price;
-	private String cert;
-	private String content;
+	private Text content;
 	
 	
 	public DProduct()
-	{
-
-	}
+	{ }
 
 	public Long getId() {
 		return id;
@@ -57,24 +56,12 @@ public class DProduct {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-
-	public String getCert() {
-		return cert;
+	
+	public String getContent() {
+	    return content.getValue();
 	}
 
-	public void setCert(String cert) {
-		this.cert = cert;
+	public void setContent(String data) {
+	    this.content = new Text(data);
 	}
-	
-	public String getContent()
-	{
-		return this.content;
-	}
-	
-	public void setContent(String content)
-	{
-		this.content = content;
-	}
-	
-	
-} 
+}

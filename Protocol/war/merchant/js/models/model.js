@@ -9,7 +9,8 @@ directory.Product = Backbone.Model.extend({
     		name : '',
     		description : '',
     		price : '',
-    		cert : ''
+    		cert : '',
+    		content: ''
     	};
     }
 });

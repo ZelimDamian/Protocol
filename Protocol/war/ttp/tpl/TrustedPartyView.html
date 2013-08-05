@@ -1,0 +1,96 @@
+<div class="row-fluid">
+	<form class="form-horizontal">
+			
+		<fieldset class="span6">
+			<legend>Certificate details</legend>
+			
+			<div class="well span12" id="certificateContainer">
+				<textarea class="span12" id="jsonPayment" rows="25 "><%= jsondata %></textarea>
+				
+			</div>
+				<a class="btn btn-primary btn-large span12" id="initiateProtocolJSON">Parse JSON data</a>				
+		</fieldset>
+	
+		<fieldset class="span6">
+		
+		<!-- Form Name -->
+		<legend>Submit payment</legend>
+		
+		<!-- Name input-->
+		<div class="control-group">
+		  <label class="control-label" for="customer">Customer Id</label>
+		  <div class="controls">
+		    <input id="payer" name="payer" type="text" placeholder="Customer id" class="input-large span12" value="<%= payer %>">
+		  </div>
+		</div>
+
+		<div class="control-group">
+		  <label class="control-label" for="customer">Customer Name</label>
+		  <div class="controls">
+		    <input id="payerName" name="payerName" type="text" placeholder="Customer name" class="input-large span12" value="<%= payerName %>">
+		  </div>
+		</div>
+		
+		<!-- Description input-->
+		<div class="control-group">
+		  <label class="control-label" for="merchant">Merchant name</label>
+		  <div class="controls">
+		    <input type="text" class="span12" id="payee" class="input-large span12" name="payee" placeholder="Merchant name" value="<%= payee %>"/>
+		  </div>
+		</div>
+		
+		<!-- Description input-->
+		<div class="control-group">
+		  <label class="control-label" for="productId">Product Id</label>
+		  <div class="controls">
+		    <input type="text" class="span12" id="productId" class="input-large span12" name="productId" placeholder="Product ID" value="<%= productId %>"/>
+		  </div>
+		</div>
+		
+		<!-- Price input-->
+		<div class="control-group">
+		  <label class="control-label" for="productId">Amount</label>
+		  <div class="controls">
+		    <input type="text" class="span12" id="amount" class="input-large span12" name="amount" placeholder="Price" value="<%= amount %>"/>
+		  </div>
+		</div>
+		
+		<!-- Timstamp input-->
+		<div class="control-group">
+		  <label class="control-label" for="productId">TimeStamp</label>
+		  <div class="controls">
+		    <input type="text" class="span12" id="timestamp" class="input-large span12" name="timestamp" placeholder="Time stamp" value="<%= timeStamp %>"/>
+		  </div>
+		</div>
+		
+		<!-- Encrypted payment hash-->
+		<div class="control-group">
+		  <label class="control-label" for="enHash">Encrypted hash</label>
+		  <div class="controls">
+		    <input type="text" class="input-large span12" id="enHash" name="enHash" placeholder="Encrypted payment hash" value="<%= enHash %>" />
+		  </div>
+		</div>
+	
+		<!-- Description input-->
+		<div class="control-group">
+		  <label class="control-label" for="publicKey">Public Key</label>
+		  <div class="controls">
+		    <textarea class="span12" id="publicKey" name="publicKey" placeholder="Public Key" rows="5"><%= publicKey %></textarea>
+		  </div>
+		</div>
+
+		<!--Payment hash-->
+		<div class="control-group">
+		  <label class="control-label" for="priavteKey">Private Key</label>
+		  <div class="controls">
+		    <textarea class="span12" id="privateKey" name="privateKey" placeholder="Private Key" rows="10" ><%= privateKey %></textarea>
+		  </div>
+		  
+		</div>
+	
+		<a class="btn btn-success btn-large span12" id="initiateProtocol">Initiate Protocol</a>
+		
+		</fieldset>
+
+	</form>
+</div>

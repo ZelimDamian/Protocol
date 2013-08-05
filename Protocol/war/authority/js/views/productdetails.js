@@ -18,10 +18,11 @@ directory.ProductSummaryView = Backbone.View.extend({
     render:function () {
         this.$el.html(this.template(this.model.toJSON()));
         
-        $name = this.$el.find('#name');
-        $desc = this.$el.find('#description');
-        $price = this.$el.find('#price');
-        $cert = this.$el.find('#cert');
+        this.$name = this.$el.find('#name');
+        this.$desc = this.$el.find('#description');
+        this.$price = this.$el.find('#price');
+        this.$cert = this.$el.find('#cert');
+        this.$content = this.$('#content');
         
         //this.$("#createProduct").click(this.createProduct);
 
@@ -31,10 +32,11 @@ directory.ProductSummaryView = Backbone.View.extend({
     updateSaveModel:function()
     {
     	var data = {
-    			name : $name.val(),
-    			description : $desc.val(),
-    			price: parseInt($price.val()),
-    			cert : $cert.val()
+    			name : this.$name.val(),
+    			description : this.$desc.val(),
+    			price: parseInt(this.$price.val()),
+    			cert : this.$cert.val(),
+    			content: this.$content.val()
     	};
     	this.model.save(data);
     	this.collection.add(this.model);

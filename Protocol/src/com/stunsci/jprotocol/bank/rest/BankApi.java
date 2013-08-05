@@ -83,7 +83,7 @@ public class BankApi {
 	public List<Payment> getAllPayments()
 	{
 	 	EntityManager em = EmfInstanceManager.getInstance().get().createEntityManager();
-	    Query query = em.createQuery("SELECT e FROM "+ Client.class.getName() +" as e");
+	    Query query = em.createQuery("SELECT e FROM "+ Payment.class.getName() +" as e");
 	    @SuppressWarnings("unchecked")
 		List<Payment> results = query.getResultList();
 	    return results;
@@ -114,17 +114,21 @@ public class BankApi {
 	 	return payments;
     }
 	
-	@GET
+	@POST
 	@Consumes("application/json")
 	@Path("/payments/verify/")
-	public boolean verifyPayment(Payment payment)
+	public String verifyPayment(Payment payment)
 	{
 	 	EntityManager em = EmfInstanceManager.getInstance().get().createEntityManager();
 	 	
 	 	try{
-	 		Payment found = em.find(Payment.class, payment.getId());
+		    Query query = em.createQuery("SELECT p FROM "+ Payment.class.getName() +" p WHERE p.enHash = :enHash");
+		    query.setParameter("enHash", payment.getEnHash());
+		    
+	 		Payment found = (Payment) query.getResultList().get(0);
+	 		
 	 		if(found.equals(payment))
-	 			return true;
+	 			return "SUCCESS";
 	 	}catch(Exception ex) {
 	 		System.err.println(ex);
 	 	}
@@ -132,7 +136,7 @@ public class BankApi {
 	 		em.close();
 	 	}
 	 	
-	 	return false;	
+	 	return "FAIL";	
 	}
 	
 	 @POST
@@ -146,7 +150,7 @@ public class BankApi {
 	 	payment.setPrivateKey(encryption.getPrivateKey());
 	 	payment.setPublicKey(encryption.getPublicKey());
 	 	
-	 	payment.setTimeStamp(new java.util.Date());
+	 	payment.setTimeStamp(new java.util.Date().getTime());
 	 	
 	 	String digestedPayment = eh.digestString(payment.getPayee() + payment.getAmount() + payment.getTimeStamp().toString()); 
 	 	payment.setHash(digestedPayment);

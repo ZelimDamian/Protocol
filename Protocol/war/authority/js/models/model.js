@@ -13,7 +13,8 @@ directory.Product = Backbone.Model.extend({
     		merchant: '',
     		found : '',
     		productDescription: '',
-    		productName: ''
+    		productName: '',
+    		content: ''
     	};
     }
 });

@@ -7,7 +7,7 @@ import javax.persistence.Id;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-import com.google.appengine.api.datastore.Blob;
+import com.google.appengine.api.datastore.Text;
 
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -19,12 +19,12 @@ public class Product {
 	private String name;
 	private String description;
 	private int price;
-	private Blob content;
+	private Text content;
 	private String cert;
 	
 	public Product()
 	{
-
+		
 	}
 
 	public Long getId() {
@@ -67,12 +67,12 @@ public class Product {
 		this.cert = cert;
 	}
 
-	public Blob getContent() {
-		return content;
+	public String getContent() {
+	    return content.getValue();
 	}
 
-	public void setContent(Blob content) {
-		this.content = content;
+	public void setContent(String data) {
+	    this.content = new Text(data);
 	}
 	
 } 

@@ -66,11 +66,14 @@ directory.CustomerSummaryView = Backbone.View.extend({
     		return;
     	}
     	
+    	var payerName = this.model.get('login');
+    	
     	var data = {
     			amount : this.$amount.val(),
     			payee : this.$payee.val(),
     			payer: payer,
-    			hash : ''
+    			hash : '',
+    			payerName: payerName
     	};
     	
     	$.ajax({

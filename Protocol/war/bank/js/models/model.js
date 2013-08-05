@@ -7,7 +7,8 @@ directory.Payment = Backbone.Model.extend({
 			hash: '',
 			enHash: '',
 			publicKey: '',
-			privateKey: ''
+			privateKey: '',
+			payerName: ''
 		};
 	}
 });
