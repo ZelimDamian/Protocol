@@ -1,6 +1,7 @@
 package com.stunsci.jprotocol.merchant.rest;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -41,7 +42,7 @@ import com.stunsci.jprotocol.ttp.models.TrustedTransaction;
 		@GET
 		@Produces("application/json")
 		@Path("/products/{id}")
-		public Product getAllProducts(@PathParam("id") int id)
+		public Product getAllProducts(@PathParam("id") Long id)
 		{
 		 	EntityManager em = EmfInstanceManager.getInstance().get().createEntityManager();
 		    
@@ -52,11 +53,14 @@ import com.stunsci.jprotocol.ttp.models.TrustedTransaction;
 		@GET
 		@Consumes("application/json")
 		@Path("/products/{id}/price")
-		public String getProductPrice(@PathParam("id") int id)
+		public String getProductPrice(@PathParam("id") Long id)
 		{
 		 	EntityManager em = EmfInstanceManager.getInstance().get().createEntityManager();
 		    
 			Product result = em.find(Product.class, id);
+			
+			Logger.getLogger(MerchantApi.class.getName()).severe("FETCHING PRICE = " + result.getPrice() + " for id " + id);
+			
 		    return "" + result.getPrice();
 		}
 		

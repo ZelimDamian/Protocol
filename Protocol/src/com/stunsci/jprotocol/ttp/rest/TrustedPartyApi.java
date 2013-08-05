@@ -1,5 +1,8 @@
 package com.stunsci.jprotocol.ttp.rest;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.ws.rs.Consumes;
@@ -25,6 +28,7 @@ import com.stunsci.jprotocol.bank.models.Payment;
 
 @Path("ttp")
 public class TrustedPartyApi {
+	private static final Logger log = Logger.getLogger(TrustedPartyApi.class.getName());
 
 	EncryptionHelper eh = new EncryptionHelper();
 	
@@ -34,7 +38,7 @@ public class TrustedPartyApi {
 
 		SimpleHttpClient client = new SimpleHttpClient();
 		
-		String response = client.getJsonStringFromURL("http://localhost:8888/rest/merchant/orders/" + orderHash + "/payment", json, "POST");
+		String response = client.getJsonStringFromURL("http://java-protocol-implementation.appspot.com/rest/merchant/orders/" + orderHash + "/payment", json, "POST");
 		
 		if(response.equals("SUCCESS"))
 			return true;
@@ -82,7 +86,7 @@ public class TrustedPartyApi {
 		String orderJson = gson.toJson(order);
 		
 		SimpleHttpClient client = new SimpleHttpClient();
-		String productString = client.getJsonStringFromURL("http://localhost:8888/rest/merchant/orders/", orderJson, "POST");
+		String productString = client.getJsonStringFromURL("http://java-protocol-implementation.appspot.com/rest/merchant/orders/", orderJson, "POST");
 		
 		EncryptedProduct product = gson.fromJson(productString, EncryptedProduct.class);
 		return product;
@@ -97,7 +101,10 @@ public class TrustedPartyApi {
 
 		SimpleHttpClient client = new SimpleHttpClient();
 		
-		String response = client.getJsonStringFromURL("http://localhost:8888/rest/bank/payments/verify", json, "POST");
+		String response = client.getJsonStringFromURL("http://java-protocol-implementation.appspot.com/rest/bank/payments/verify", json, "POST");
+
+		//log.severe("BANK RESPONSE: " + response);
+
 		
 		if(response.equals("SUCCESS"))
 			return true;
@@ -108,8 +115,11 @@ public class TrustedPartyApi {
 	int getProductPriceFromMerchant(Long id)
 	{
 		String response = new SimpleHttpClient()
-		.getStringFromURL("http://localhost:8888/rest/merchant/products/"+ id +"/price", "", "GET");
+		.getStringFromURL("http://java-protocol-implementation.appspot.com/rest/merchant/products/"+ id +"/price", "", "GET");
 
+		log.severe("PRODUCT ID: " + id);
+		log.severe("MERCHANT RESPONSE: " + response);
+		
 		return Integer.parseInt(response);
 	}
 	
@@ -127,7 +137,7 @@ public class TrustedPartyApi {
 			throw new WebApplicationException(400);
 	    
 		if(this.getProductPriceFromMerchant(payment.getProductId()) > payment.getAmount())
-			throw new WebApplicationException(400);
+			throw new WebApplicationException(403);
 
 		// 2. Form an order entity
 		TrustedTransaction transaction = new TrustedTransaction();
